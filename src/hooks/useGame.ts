@@ -40,13 +40,14 @@ export const useGame = () => {
       isLocked ||
       clickedCard.isFlipped ||
       clickedCard.isMatched ||
-      clickedCard.id === firstCard?.id
+      clickedCard.id === firstCard?.id ||
+      clickedCard.id === secondCard?.id  // Add this check
     ) {
       return;
     }
-
+  
     flipCard(clickedCard.id);
-
+  
     if (!firstCard) {
       setFirstCard(clickedCard);
     } else {
@@ -66,25 +67,22 @@ export const useGame = () => {
   };
 
   const checkForMatch = (first: Card, second: Card) => {
+    if (!first || !second) return;
+    
     setTimeout(() => {
-      if (first.image === second.image) {
-        setCards(prev =>
-          prev.map(card =>
-            card.id === first.id || card.id === second.id
-              ? { ...card, isMatched: true }
-              : card
-          )
-        );
+      const isMatch = first.image === second.image;
+      setCards(prev =>
+        prev.map(card =>
+          card.id === first.id || card.id === second.id
+            ? { ...card, isMatched: isMatch, isFlipped: isMatch }
+            : card
+        )
+      );
+      
+      if (isMatch) {
         setScore(prev => prev + 10);
-      } else {
-        setCards(prev =>
-          prev.map(card =>
-            card.id === first.id || card.id === second.id
-              ? { ...card, isFlipped: false }
-              : card
-          )
-        );
       }
+  
       setFirstCard(null);
       setSecondCard(null);
       setIsLocked(false);
