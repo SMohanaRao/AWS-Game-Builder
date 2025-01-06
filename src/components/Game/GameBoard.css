@@ -1,0 +1,56 @@
+.game-board {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.game-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.score, .moves {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #232f3e;
+}
+
+.new-game-btn {
+  padding: 8px 16px;
+  background-color: #ff9900;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.new-game-btn:hover {
+  background-color: #ff8400;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  width: 600px;
+}
+
+@media (max-width: 600px) {
+  .cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  
+  .game-info {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
