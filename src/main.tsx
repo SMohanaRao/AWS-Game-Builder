@@ -13,13 +13,13 @@ Amplify.configure({
     GraphQL: {
       endpoint: config.data.url,
       region: config.data.aws_region,
+      defaultAuthMode: config.data.default_authorization_type,
     }
   },
   Auth: {
     Cognito: {
       userPoolId: config.auth.user_pool_id,
       userPoolClientId: config.auth.user_pool_client_id,
-      region: config.auth.aws_region,
     }
   }
 });
@@ -27,9 +27,9 @@ Amplify.configure({
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Authenticator>
-      {({ signOut, user }) => (
-        <App user={user} onSignOut={signOut} />
-      )}
+    {({ signOut, user }: { signOut?: () => void, user?: any }) => (
+      <App user={user} onSignOut={() => signOut?.()} />
+    )}
     </Authenticator>
   </React.StrictMode>
 );
